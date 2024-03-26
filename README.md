@@ -13,7 +13,7 @@ Please keep the following in mind:
 
 ## Student-version
 
-This is a student-version of the repo, forked from the master-branch.
+This is a student-version of the repo, forked from the master-branch
 
 ## Setup
 
