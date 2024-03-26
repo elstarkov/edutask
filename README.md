@@ -11,6 +11,10 @@ Please keep the following in mind:
 * The system contains intended flaws, which are to be identified applying test techniques.
 * The system is a work-in-progress, meaning that some functionalities are not yet implemented. Focus on the functionalities that already exist, everything else can be disregarded for now.
 
+## Student-version
+
+This is a student-version of the repo, forked from the master-branch.
+
 ## Setup
 
 There are two ways to get the system running:
