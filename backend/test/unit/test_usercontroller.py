@@ -9,7 +9,7 @@ def test_get_user_by_email_invalid_email():
 
     email = "jane.done[2]gmail.com"
 
-    mock_user = [{"email": email}]
+    mock_user = {"email": email}
 
     mock_dao = mock.MagicMock()
     mock_dao.find.return_value = [mock_user]
@@ -25,16 +25,16 @@ def test_get_user_by_email():
 
     email = "jane.done@gmail.com"
 
-    mock_user = {"email": email}
+    mock_user = [{"email": email}]
 
     mock_dao = mock.MagicMock()
-    mock_dao.find.return_value = [mock_user]
+    mock_dao.find.return_value = mock_user
 
     user_controller = UserController(dao=mock_dao)
 
     user = user_controller.get_user_by_email(email=email)
 
-    assert user == mock_user #check that the expected user is returned
+    assert user == mock_user[0] #check that the expected user is returned
 
 @pytest.mark.unit
 def test_get_no_user():
@@ -45,7 +45,7 @@ def test_get_no_user():
     mock_user = []
 
     mock_dao = mock.MagicMock()
-    mock_dao.find.return_value = [mock_user]
+    mock_dao.find.return_value = mock_user
 
     user_controller = UserController(dao=mock_dao)
 
@@ -60,13 +60,10 @@ def test_get_many_users_and_print_warning():
     user = "jane_doe"
     user2 = "jane_doe_1337"
 
-    mock_user = {"user": user,"email": email}
-    mock_user2 = {"user": user2, "email": email}
-
-    mock_users = [mock_user, mock_user2]
+    mock_user = [{"user": user,"email": email}, {"user": user2, "email": email}]
 
     mock_dao = mock.MagicMock()
-    mock_dao.find.return_value = mock_users
+    mock_dao.find.return_value = mock_user
 
     with mock.patch('builtins.print') as mock_print:
         user_controller = UserController(dao=mock_dao)
@@ -75,7 +72,7 @@ def test_get_many_users_and_print_warning():
         #check the warning is printed when more than 1 users are found
         mock_print.assert_called_once_with(f'Error: more than one user found with mail {email}')
 
-    assert user == mock_user #check that returned user is the first result
+    assert user == mock_user[0] #check that returned user is the first result
 
 
 @pytest.mark.unit
@@ -89,5 +86,5 @@ def test_database_operation_fail():
 
     user_controller = UserController(dao=mock_dao)
 
-    with pytest.raises(Exception): #check that Exception is raised when email is not in valid format
+    with pytest.raises(Exception): #check that Exception is raised when database operation fails
         user_controller.get_user_by_email(email=email)
