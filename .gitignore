@@ -12,6 +12,8 @@ frontend/node_modules
 /.pnp
 .pnp.js
 
+# test-related
+backend/htmlcov/
 
 # misc
 .DS_Store
