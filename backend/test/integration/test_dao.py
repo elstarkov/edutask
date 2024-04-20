@@ -55,12 +55,13 @@ class TestCreate:
     @pytest.mark.integration
     def test_create_valid(self, sut, data):
         #expected keys to be in the result
-        expected_keys = {'_id', 'test_string', 'test_bool'}
-
         result = sut.create(data)
 
-        #result is expected to contain the expected_keys
-        assert result.keys() == expected_keys
+        # Unpack data param and combine with _id from db (like ...data in JS)
+        expected_dict = {'_id': result.get("_id"), **data}
+
+        #result is expected to contain the expected_dict, which is the data param + the _id from the collection
+        assert result == expected_dict
 
     """test create with wrong datatype, missing required parameters"""
     @pytest.mark.parametrize('data',
