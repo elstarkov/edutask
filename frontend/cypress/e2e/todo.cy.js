@@ -50,7 +50,8 @@ describe('Adding task to authenticated user',
     })
 
     it('Add task', () => {
-
+        cy.get("@taskForm").children("[type=text]").should("be.empty")
+        cy.get("@taskForm").children("[type=submit]").should("be.disabled")
         cy.get("@taskForm").children("[type=text]").type(Cypress.env("taskDesc")).then(() => {
             cy.get("@taskForm").children("[type=text]").should("have.value", Cypress.env("taskDesc"))
             cy.get("@taskForm").children("[type=submit]").should("be.visible").click()
@@ -66,11 +67,12 @@ describe('Adding task to authenticated user',
         }).then((response) => {
             cy.log(response.body)
         })
-        // cy.request({
-        //     method: 'DELETE',
-        //     url: `http://localhost:5000/tasks/byid/${taskId}`
-        // }).then((response) => {
-        //     cy.log(response.body)
-        // })
+        cy.request({
+            method: 'DELETE',
+            url: `http://localhost:5000/tasks/byid/${taskId}`
+        }).then((response) => {
+            cy.log("taskid->",taskId)
+            cy.log(response.body)
+        })
     })
 })
