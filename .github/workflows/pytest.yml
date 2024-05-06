@@ -29,11 +29,9 @@ jobs:
                   if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
             - name: Unit Tests
-              working-directory: /backend
               run: |
-                  pytest -m "unit"
+                  python -m pytest -m "unit"
 
             - name: Integration Tests
-              working-directory: /backend
               run: |
-                  pytest -m "integration"
+                  python -m pytest -m "integration"
