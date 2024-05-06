@@ -12,6 +12,8 @@ frontend/node_modules
 /.pnp
 .pnp.js
 
+# test-related
+backend/htmlcov/
 
 # misc
 .DS_Store
@@ -32,3 +34,7 @@ data/db/
 *.coverage
 backend/.venv/
 backend/test/solutions/
+frontend/cypress/e2e/r8uc1-solution.cy.js
+frontend/cypress/fixtures/task.json
+frontend/cypress/e2e/r8uc2-solution.cy.js
+frontend/cypress/e2e/r8uc3-solution.cy.js
